@@ -1,0 +1,19 @@
+{
+  "name": "supercrud",
+  "version": "0.0.1",
+  "description": "A small library to generate declerative route handlers for any types of models.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "author": "Mathias Iden",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-jest": "^15.0.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-es2017": "^6.14.0",
+    "jest": "^15.1.1"
+  }
+}
