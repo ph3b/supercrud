@@ -16,9 +16,7 @@ The code imperative and may require some effort to understand for new developers
 ```javascript
 // Route handler to create a new user in Express
 app.post('/user', (req, res) => {
-  // Check input fields
   if(req.body.username && req.body.password){
-    // Save user to database
     new DatabaseUser({username: req.body.username, password: req.body.password})
       .save()
       .then(savedUser => {
@@ -31,9 +29,7 @@ app.post('/user', (req, res) => {
 })
 
 app.post('/article', addUsernameToRequest, (req, res) => {
-  // Check input fields
   if(req.body.title && req.body.text){
-    // Save article to database
     new DatabaseArticle({title: req.body.title, text: req.body.text, created_by: req.username })
       .save()
       .then(savedArticle => {
@@ -62,17 +58,13 @@ const CRUD = Supercrud({
 // 2. Create your handlers. The returned handlers will call your saveFunction.
 
 const userHandler = CRUD.create(DatabaseUser, {
-  // Check the input
   requiredFields: ['username', 'password'],
-  // This is called after the user has been saved. Specify return format.
   after: savedUser => ({ message: 'User saved.', data: savedUser})
 })
 
 const articleHandler = CRUD.create(DatabaseArticle, {
   requiredFields: ['title', 'text'],
-  // Don't allow the user to speficy anyone other than title and text
   allowedFields: ['title', 'text'],
-  // This is called before we save it to the database.
   before: (body, request) => Object.assign({}, body, { created_by: req.username }),
   after: savedUser => ({ message: 'User saved.', data: savedUser})
 })
