@@ -91,3 +91,5 @@ or with ```async await```
 app.post('/user', async (req, res) => res.send(await userHandler(req.body))
 app.post('/article', addUsernameToRequest, async (req, res) => res.send(await articleHandler(req.body))
 ```
+### Benefits of Supercrud
+Supecrud aims to make your code more readable and reduce boilerplate. In addition, since we are seperating the logic of the handlers into smaller functions (before, after) without side-effects, we can easily write good unit tests to verify the correctness of the code.
