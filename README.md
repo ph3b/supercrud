@@ -1,4 +1,4 @@
-# Supercrud
+# WIP: Supercrud
 [![Build Status](https://travis-ci.org/ph3b/supercrud.svg?branch=master)](https://travis-ci.org/ph3b/supercrud)
 
 *WIP*: A small, opinionated library to generate functional, testable, and readable CRUD handlers for your database models.
