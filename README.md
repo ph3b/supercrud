@@ -17,7 +17,7 @@ app.post('/user', (req, res) => {
     // Save user to database
     new DatabaseUser({username: req.body.username, password: req.body.password})
       .save()
-      .then((savedUser) => {
+      .then(savedUser => {
         res.send({message: 'User saved.', data: savedUser});
       });
   } 
@@ -32,7 +32,7 @@ app.post('/user', (req, res) => {
 // 1. Create your handler
 const handler = create(DatabaseUser, {
   requiredFields: ['username', 'password'],
-  after: (savedUser) => ({ message: 'User saved.', data: savedUser})
+  after: savedUser => ({ message: 'User saved.', data: savedUser})
 })
 
 // 2. Hook it up to Express, Restify or whatever web framework you use.
