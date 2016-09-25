@@ -51,7 +51,7 @@ app.post('/article', addUsernameToRequest, (req, res) => {
 import Supercrud from 'supercrud';
 
 const CRUD = Supercrud({
-  saveFunction: (model, modelObject) => new model(modelObject).save()
+  saveFunction: (model, body) => new model(body).save()
 });
 
 
