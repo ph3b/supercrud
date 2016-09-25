@@ -70,6 +70,8 @@ const userHandler = CRUD.create(DatabaseUser, {
 
 const articleHandler = CRUD.create(DatabaseArticle, {
   requiredFields: ['title', 'text'],
+  // Don't allow the user to speficy anyone other than title and text
+  allowedFields: ['title', 'text'],
   // This is called before we save it to the database.
   before: (body, request) => Object.assign({}, body, { created_by: req.username }),
   after: savedUser => ({ message: 'User saved.', data: savedUser})
