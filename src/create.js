@@ -1,4 +1,4 @@
-const create = (saveFunction) => (model, methods, patch) => {
+const create = (saveFunction) => (model, methods, update = false) => {
     const {
         requiredAttributes,
         allowedAttributes,
@@ -6,7 +6,6 @@ const create = (saveFunction) => (model, methods, patch) => {
         before,
         after,
         onError,
-        onMissingAttributes,
         onValidationError,
     } = methods;
     return async (newModel, request) => {
@@ -32,6 +31,7 @@ const create = (saveFunction) => (model, methods, patch) => {
                     return formattedModel;
                 }, {})
             }
+
             const transformedModel = before ?  await before(newModel, request) : newModel;
             const insertedModel = await saveFunction(model, transformedModel, request);
             return after ? await after(insertedModel, request) : insertedModel;

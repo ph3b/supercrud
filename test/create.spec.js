@@ -1,6 +1,6 @@
 import Supercrud from '../src/index.js';
 
-describe('CREATE handler', () => {
+describe('Create handler', () => {
 
     it('Should create a CRUD utility with a create handler', () => {
         const CRUD = Supercrud({ saveFunction: (model, modelObject) => new model(modelObject).save()});

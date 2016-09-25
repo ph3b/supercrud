@@ -1,6 +1,6 @@
 import Supercrud from '../src/index.js';
 
-describe('GET handler', () => {
+describe('Get handler', () => {
 
     it('Should create CRUD utility with a get handler', () => {
         const CRUD = Supercrud({getFunction: (model) => model.find()})

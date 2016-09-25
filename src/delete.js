@@ -1,14 +1,13 @@
-function del(model, methods = {}){
+const del = deleteFunction => (model, methods = {}) => {
     const { validate, after, onValidationError } = methods;
-    return async (modelId, request) => {
-        if(!modelId) throw new Error('Missing model id attribute');
-
+    return async (request) => {
         if (validate) {
-            try { await validate(modelId, request) }
-            catch(error){ return onValidationError ? await onValidationError(error, request) : error }
+            try { await validate(model, request) }
+            catch(error){ return onValidationError ? await onValidationError(error, request) : error.message }
         }
 
-        const result = await new model({[model.prototype.idAttribute]: modelId}).destroy();
-        return after ? await after(result, request) : result;
+        const result = await deleteFunction(model, request);
+        return after ? await after(model, result, request) : result;
     }
 }
+export default del;

@@ -1,3 +1,3 @@
-function update(model, methods){
-    return create(model, methods, true);
-}
+import create from './create.js';
+const update = (updateFunction) => create(updateFunction);
+export default update;
