@@ -7,6 +7,14 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "scriptPreprocessor": "<rootDir>/preprocessor.js"
+  },
   "author": "Mathias Iden",
   "license": "MIT",
   "devDependencies": {
@@ -14,6 +22,10 @@
     "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-es2017": "^6.14.0",
-    "jest": "^15.1.1"
+    "jest": "^15.1.1",
+    "typescript": "^2.0.3"
+  },
+  "dependencies": {
+    "@types/jest": "^15.1.32"
   }
 }

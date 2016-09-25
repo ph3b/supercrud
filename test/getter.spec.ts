@@ -1,4 +1,4 @@
-import Supercrud from '../src/index.js';
+import * as Supercrud from '../src/index.js';
 
 describe('GET handler', () => {
 
