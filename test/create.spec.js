@@ -79,6 +79,19 @@ describe('CREATE handler', () => {
             expect(mockModel.save).toBeCalledWith({ name: 'Matt', age: 23 });
         })
 
+        it('Should catch any arrors thrown in the function chain', async () => {
+            const { create } = this.CRUD;
+            const mockModel = { save: jest.fn() };
+            const createHandler = create(mockModel, {
+                before: (model) => {throw new Error('Some error.')},
+                onError: (error) => error.message
+            });
+            const actual = await createHandler(null, null);
+            expect(actual).toEqual('Some error.');
+            // Check that only fields from allowedAttributes are included in the save function.
+            expect(mockModel.save.mock.calls.length).toEqual(0);
+        })
+
     })
 
 })

@@ -7,25 +7,36 @@ describe('GET handler', () => {
         expect(Object.keys(CRUD)).toEqual(['get']);
     });
 
-    it('Get handler should call getFunction', async () => {
+    it('Get handler should call getFunction and after function', async () => {
         // Declare the getFunction
         const getFunction = (model, request) => model.find({deleted: request.deleted});
-
         // Make the get crud generator
         const { get } = Supercrud({ getFunction });
-
         // Create some mock model for our test.
         const mockModel = { find: jest.fn().mockReturnValue(['mathias', 'rebekka']) };
-
         // Make the getHandler.
         const getHandler = get(mockModel, {
             after: (rows) => ({ message: 'People found', people: rows })
         });
-
         // Call the getHandler with queris.
         const actual = await getHandler({deleted: false});
         expect(mockModel.find).toBeCalledWith({deleted: false});
         expect(actual).toEqual({ message: 'People found', people: [ 'mathias', 'rebekka' ] })
+    })
+
+    it('Get handler should only call getFunction', async () => {
+        // Declare the getFunction
+        const getFunction = (model, request) => model.find({deleted: request.deleted});
+        // Make the get crud generator
+        const { get } = Supercrud({ getFunction });
+        // Create some mock model for our test.
+        const mockModel = { find: jest.fn().mockReturnValue(['mathias', 'rebekka']) };
+        // Make the getHandler.
+        const getHandler = get(mockModel);
+        // Call the getHandler with queris.
+        const actual = await getHandler({deleted: false});
+        expect(mockModel.find).toBeCalledWith({deleted: false});
+        expect(actual).toEqual([ 'mathias', 'rebekka' ])
     })
 
 })

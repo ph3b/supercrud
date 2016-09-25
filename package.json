@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "coverage": "./node_modules/jest/bin/jest.js --coverage"
   },
   "author": "Mathias Iden",
   "license": "MIT",
