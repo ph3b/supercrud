@@ -41,6 +41,6 @@ app.post('/user', (req, res) => {
 })
 ```
 or with ```async await```
-```
+```javascript
 app.post('/user', async (req, res) => res.send(await handler(req.body))
 ```
