@@ -29,22 +29,18 @@ app.post('/user', (req, res) => {
 
 ### With Supercrud
 ```javascript
+// 1. Create your handler
 const handler = create(DatabaseUser, {
   requiredFields: ['username', 'password'],
   after: (savedUser) => ({ message: 'User saved.', data: savedUser})
 })
 
-
+// 2. Hook it up to Express, Restify or whatever web framework you use.
 app.post('/user', (req, res) => {
   handler(req.body).then(response => res.send(response))
 })
 ```
 or with ```async await```
-```javascript
-const handler = create(DatabaseUser, {
-  requiredFields: ['username', 'password'],
-  after: (savedUser) => ({ message: 'User saved.', data: savedUser})
-})
-
+```
 app.post('/user', async (req, res) => res.send(await handler(req.body))
 ```
