@@ -30,7 +30,6 @@ describe('Update handler', () => {
             // Check that our call function was called with the result of the before-function
             expect(mockModel.save).toBeCalledWith({ name: 'Matt', created_by: 'rebekka'})
         })
-
         // We skip more tests here because everything is covered in the create.spec.js
 
     })

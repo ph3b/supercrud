@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "coverage": "./node_modules/jest/bin/jest.js --coverage"
+    "coverage": "./node_modules/jest/bin/jest.js --coverage",
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir bin"
   },
   "author": "Mathias Iden",
   "license": "MIT",

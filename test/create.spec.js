@@ -15,23 +15,18 @@ describe('Create handler', () => {
 
         it('Should transform and save model', async () => {
             const { create } = this.CRUD;
-
             const mockModel = { save: jest.fn().mockReturnValue({name: 'Matt', created_by: 'rebekka', id: 1}) };
             const mockReq = { username: 'rebekka'}
-
             const createHandler = create(mockModel, {
                 before: (inputModel, req) => Object.assign({}, inputModel, { created_by: req.username }),
                 after: (savedModel) => ({ message: 'User created', user: savedModel })
             });
-
             const actual = await createHandler({name: 'Matt'}, mockReq);
-
             // Chek that the createHandler returned the object from the after-function.
             expect(actual).toEqual({
                 message: 'User created',
                 user: { name: 'Matt', created_by: 'rebekka', id: 1 }
             });
-
             // Check that our call function was called with the result of the before-function
             expect(mockModel.save).toBeCalledWith({ name: 'Matt', created_by: 'rebekka'})
         })
@@ -39,29 +34,24 @@ describe('Create handler', () => {
         it('Should give error that attributes are missing', async () => {
             const { create } = this.CRUD;
             const mockModel = { save: jest.fn() };
-
             const createHandler = create(mockModel, {
                 requiredAttributes: ['name', 'email', 'age']
             });
-
             const actual = await createHandler({name: 'matt'}, null);
             expect(actual).toEqual('Missing attributes: email, age.');
             // Make sure our save function wasn't called.
             expect(mockModel.save.mock.calls.length).toEqual(0);
-
         })
 
         it('Should return the error thrown in validation function', async () => {
             const { create } = this.CRUD;
             const mockModel = { save: jest.fn() };
-
             const createHandler = create(mockModel, {
                 validate: (modelObject, request) => {
                     if(!Number.isInteger(modelObject.age)) throw new Error('Age must be a number');
                 },
                 onValidationError: (error) => error.message
             });
-
             const actual = await createHandler({age: '23'}, null);
             expect(actual).toEqual('Age must be a number');
             // Make sure our save function wasn't called.
