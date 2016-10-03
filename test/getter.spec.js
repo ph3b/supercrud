@@ -9,18 +9,19 @@ describe('Get handler', () => {
 
     it('Get handler should call getFunction and after function', async () => {
         // Declare the getFunction
-        const getFunction = (model, request) => model.find({deleted: request.deleted});
+        const getFunction = (model, request, option) => model.find({query: option.query});
         // Make the get crud generator
         const { get } = Supercrud({ getFunction });
         // Create some mock model for our test.
         const mockModel = { find: jest.fn().mockReturnValue(['mathias', 'rebekka']) };
         // Make the getHandler.
         const getHandler = get(mockModel, {
+            options: { query: {active: 1}},
             after: (rows) => ({ message: 'People found', people: rows })
         });
         // Call the getHandler with queris.
         const actual = await getHandler({deleted: false});
-        expect(mockModel.find).toBeCalledWith({deleted: false});
+        expect(mockModel.find).toBeCalledWith({query: { active: 1}});
         expect(actual).toEqual({ message: 'People found', people: [ 'mathias', 'rebekka' ] })
     })
 
